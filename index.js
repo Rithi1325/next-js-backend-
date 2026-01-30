@@ -14,9 +14,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5000;
 
-// MongoDB Connection
 if (!process.env.MONGO_URI) {
     console.error("❌ CRITICAL ERROR: MONGO_URI is not defined in environment variables.");
     // Do not crash immediately so logs can be read, but DB features won't work
@@ -273,9 +272,6 @@ app.use('/api', apiRouter);
 // Export for Vercel
 module.exports = app;
 
-// Only listen if not running in production (Vercel handles the port)
-if (require.main === module) {
-    app.listen(PORT, () => {
-        console.log(`🚀 Server running on http://localhost:${PORT}`);
-    });
-}
+app.listen(PORT, () => {
+    console.log("Server running on port " + PORT);
+});
